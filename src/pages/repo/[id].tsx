@@ -24,6 +24,20 @@ const mockRepo = {
   subscribers_count: 202,
 };
 
+const wrapperBackground = "";
+const cardBackground = "";
+const avatarStyle = "";
+
+// const buttonBackground1 = "#c81e81";
+// const buttonBackground2 = "#ffffff";
+// const border = "0";
+
+const buttonBackground1 = "";
+const buttonBackground2 = "";
+const border = "";
+
+const fontSize = "";
+
 const Repo = () => {
   const router = useRouter();
   const { pageId } = router.query;
@@ -34,12 +48,15 @@ const Repo = () => {
   return false ? (
     <h1>LOADING...</h1>
   ) : (
-    <div className="wrapper">
-      <div className="card">
+    <div className="wrapper" style={{ backgroundColor: wrapperBackground }}>
+      <div
+        className="card"
+        style={{ backgroundColor: cardBackground, fontSize: fontSize }}
+      >
         <CardHeader
           author={mockRepo.owner.login}
           avatar={mockRepo.owner.avatar_url}
-          //   avatarStyle={linkData.avatarStyle}
+          avatarStyle={avatarStyle}
           date={mockRepo.created_at}
         />
         <CardBody
@@ -54,6 +71,9 @@ const Repo = () => {
           subscribers={mockRepo.subscribers_count}
           forks={mockRepo.forks}
           stars={mockRepo.stargazers_count}
+          buttonBackground1={buttonBackground1}
+          buttonBackground2={buttonBackground2}
+          border={border}
         />
       </div>
     </div>

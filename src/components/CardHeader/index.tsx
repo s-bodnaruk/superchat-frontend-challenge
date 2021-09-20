@@ -5,7 +5,7 @@ import Avatar from "./Avatar";
 interface ICardHeaderProps {
   author: string;
   avatar: string;
-  avatarStyle?: string;
+  avatarStyle: string;
   date: string;
 }
 
@@ -17,12 +17,15 @@ const CardHeader: FC<ICardHeaderProps> = ({
 }) => {
   return (
     <div className="header">
-      <Avatar
-        avatar={avatar}
-        // avatarStyle={avatarStyle}
-      />
-      <div className="header-info">Owner: {author}</div>
-      <div className="header-info">Created: {date}</div>
+      <Avatar avatar={avatar} avatarStyle={avatarStyle} />
+      <div className="header-info">
+        <span className="info-title">Owner: </span>
+        {author}
+      </div>
+      <div className="header-info">
+        <span className="info-title">Created: </span>
+        {date}
+      </div>
     </div>
   );
 };

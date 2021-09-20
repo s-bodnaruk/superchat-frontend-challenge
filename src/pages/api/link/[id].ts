@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        const link = await Link.findById(id);
+        const link = await Link.findOne({ id: id });
         if (!link) {
           return res.status(400).json({ success: false });
         }

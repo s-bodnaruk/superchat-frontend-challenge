@@ -78,7 +78,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/pages/link/index.jsx", "src/pages/_app.tsx", "src/utils/dbConnect.ts", "src/pages/api/blog.js"  ],
+, "src/pages/link/index.jsx", "src/pages/_app.tsx", "src/utils/dbConnect.ts", "src/pages/api/blog.js", "src/pages/api/link/add.ts", "src/pages/api/link/[id].jss", "src/models/LinkSchema.ts"  ],
   "exclude": [
     "node_modules"
   ]

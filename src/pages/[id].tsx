@@ -24,39 +24,38 @@ const mockRepo = {
   subscribers_count: 202,
 };
 
-const wrapperBackground = "";
-const cardBackground = "";
-const avatarStyle = "";
+// const wrapperBackground = "";
+// const cardBackground = "";
+// const avatarStyle = "";
 
-// const buttonBackground1 = "#c81e81";
-// const buttonBackground2 = "#ffffff";
-// const border = "0";
-
-const buttonBackground1 = "";
-const buttonBackground2 = "";
-const border = "";
-
-const fontSize = "";
+// const buttonBackground1 = "";
+// const buttonBackground2 = "";
+// const buttonBorderRadius = "";
 
 const Repo = () => {
   const router = useRouter();
-  const { pageId } = router.query;
-  //   const { linkData, loading, error } = useFetcher();
+  const pageId: string | string[] | undefined = router.query.id;
 
-  //   if (!linkData) return <div>No data!</div>;
+  const { linkData, loading, error } = useFetcher(pageId);
 
-  return false ? (
+  if (!linkData) return <div>No data!</div>;
+
+  console.log("linkData", linkData);
+  return loading ? (
     <h1>LOADING...</h1>
   ) : (
-    <div className="wrapper" style={{ backgroundColor: wrapperBackground }}>
+    <div
+      className="wrapper"
+      style={{ backgroundColor: linkData.wrapperBackground }}
+    >
       <div
         className="card"
-        style={{ backgroundColor: cardBackground, fontSize: fontSize }}
+        style={{ backgroundColor: linkData.cardBackground }}
       >
         <CardHeader
           author={mockRepo.owner.login}
           avatar={mockRepo.owner.avatar_url}
-          avatarStyle={avatarStyle}
+          avatarStyle={linkData.avatarStyle}
           date={mockRepo.created_at}
         />
         <CardBody
@@ -71,9 +70,9 @@ const Repo = () => {
           subscribers={mockRepo.subscribers_count}
           forks={mockRepo.forks}
           stars={mockRepo.stargazers_count}
-          buttonBackground1={buttonBackground1}
-          buttonBackground2={buttonBackground2}
-          border={border}
+          buttonBackground1={linkData.buttonBackground1}
+          buttonBackground2={linkData.buttonBackground2}
+          buttonBorderRadius={linkData.buttonBorderRadius}
         />
       </div>
     </div>

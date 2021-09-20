@@ -4,10 +4,13 @@ import { fetcher } from "../utils/fetcher";
 
 import { ILink } from "@/types";
 
-export const useFetcher = () => {
-  const { data, error } = useSWR<{ data: ILink }, Error>("/api/link", fetcher);
+export const useFetcher = (url: string | string[] | undefined) => {
+  const { data, error } = useSWR<{ link: ILink }, Error>(
+    `/api/link/${url}`,
+    fetcher
+  );
   return {
-    linkData: data?.data,
+    linkData: data?.link,
     error,
     loading: !data,
   };

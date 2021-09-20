@@ -10,7 +10,7 @@ interface ICardBottom {
   stars: number;
   buttonBackground1: string;
   buttonBackground2: string;
-  border: string;
+  buttonBorderRadius: string;
 }
 
 const CardBottom: FC<ICardBottom> = ({
@@ -21,7 +21,7 @@ const CardBottom: FC<ICardBottom> = ({
   stars,
   buttonBackground1,
   buttonBackground2,
-  border,
+  buttonBorderRadius,
 }) => {
   return (
     <div className="bottom">
@@ -30,35 +30,35 @@ const CardBottom: FC<ICardBottom> = ({
         type={size}
         background1={buttonBackground1}
         background2={buttonBackground2}
-        border={border}
+        buttonBorderRadius={buttonBorderRadius}
       />
       <Button
         label="Watch"
         type={watchers}
         background1={buttonBackground1}
         background2={buttonBackground2}
-        border={border}
+        buttonBorderRadius={buttonBorderRadius}
       />
       <Button
         label="Subscribers"
         type={subscribers}
         background1={buttonBackground1}
         background2={buttonBackground2}
-        border={border}
+        buttonBorderRadius={buttonBorderRadius}
       />
       <Button
         label="Forks"
         type={forks}
         background1={buttonBackground1}
         background2={buttonBackground2}
-        border={border}
+        buttonBorderRadius={buttonBorderRadius}
       />
       <Button
         label="Stars"
         type={stars}
         background1={buttonBackground1}
         background2={buttonBackground2}
-        border={border}
+        buttonBorderRadius={buttonBorderRadius}
       />
     </div>
   );

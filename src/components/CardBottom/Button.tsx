@@ -5,7 +5,7 @@ interface IButton {
   type: number;
   background1?: string;
   background2?: string;
-  border?: string;
+  buttonBorderRadius?: string;
 }
 
 const Button: FC<IButton> = ({
@@ -13,14 +13,14 @@ const Button: FC<IButton> = ({
   type,
   background1,
   background2,
-  border,
+  buttonBorderRadius,
 }) => {
   return (
     <button
       className="button"
       style={{
         backgroundImage: `linear-gradient(-180deg, ${background1} 0%, ${background2} 100%)`,
-        borderRadius: border,
+        borderRadius: buttonBorderRadius,
       }}
     >
       {label} {type}

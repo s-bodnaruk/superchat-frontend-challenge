@@ -40,7 +40,10 @@ const Repo = () => {
 
   if (!linkData) return <div>No data!</div>;
 
+  if (error) return <div>Failed to load!</div>;
+
   console.log("linkData", linkData);
+
   return loading ? (
     <h1>LOADING...</h1>
   ) : (

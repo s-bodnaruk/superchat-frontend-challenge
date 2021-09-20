@@ -12,7 +12,7 @@ const Avatar: FC<IAvatar> = ({ avatar, avatarStyle }) => {
         className="avatar"
         src={avatar}
         alt="Avatar"
-        style={{ borderRadius: avatarStyle }}
+        style={{ borderRadius: avatarStyle === "square" ? "8%" : "" }}
       />
     </div>
   );

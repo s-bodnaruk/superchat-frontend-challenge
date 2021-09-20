@@ -1,5 +1,7 @@
 import React, { FC } from "react";
 
+import dayjs from "dayjs";
+
 import Avatar from "./Avatar";
 
 interface ICardHeaderProps {
@@ -24,7 +26,7 @@ const CardHeader: FC<ICardHeaderProps> = ({
       </div>
       <div className="header-info">
         <span className="info-title">Created: </span>
-        {date}
+        {dayjs(date).format("DD-MM-YYYY")}
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/dist/client/router";
 
 import CardHeader from "@/components/CardHeader";
-import CardBody from "@/components/CardHeader/CardBody";
+import CardBody from "@/components/CardBody";
 import CardBottom from "@/components/CardBottom";
 
 import { useFetcher } from "@/hooks/useFetcher";

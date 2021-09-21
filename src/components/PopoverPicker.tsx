@@ -10,7 +10,7 @@ interface IPopoverProps {
 }
 
 export const PopoverPicker: FC<IPopoverProps> = ({ color, onChange }) => {
-  const popover = useRef();
+  const popover = useRef<HTMLDivElement>(null);
   const [isOpen, toggle] = useState(false);
 
   const close = useCallback(() => toggle(false), []);

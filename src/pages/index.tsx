@@ -50,11 +50,11 @@ const HomePage: NextPage = () => {
     if (newLink) {
       try {
         const result = await axios.post(
-          "http://localhost:3000/api/link/add",
+          "/api/link/add",
           newLink
         );
         if (result && result.data) {
-          setGeneratedLink(`http://localhost:3000/${newLink.shortLinkId}`);
+          setGeneratedLink(`/${newLink.shortLinkId}`);
         }
       } catch (e) {
         setError("Something went wrong! Please, try again!");

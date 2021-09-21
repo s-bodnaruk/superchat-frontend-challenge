@@ -1,6 +1,9 @@
-import "../styles/index.css";
+import { NextPage } from "next";
+import { AppProps } from "next/app";
 
-const App = ({ Component, pageProps }) => {
+import "../styles/index.scss";
+
+const App: NextPage<AppProps> = ({ Component, pageProps }) => {
   return <Component {...pageProps} />;
 };
 

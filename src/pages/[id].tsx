@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/dist/client/router";
+import { NextPage } from "next";
+
+import axios from "axios";
 
 import CardHeader from "@/components/CardHeader";
 import CardBody from "@/components/CardBody";
@@ -7,42 +10,50 @@ import CardBottom from "@/components/CardBottom";
 
 import { useFetcher } from "@/hooks/useFetcher";
 
-const mockRepo = {
-  name: "react",
+const initialRepoInfo = {
+  name: "",
   owner: {
-    login: "duxianwei520",
+    login: "",
     avatar_url: "https://avatars.githubusercontent.com/u/3249653?v=4",
   },
   html_url: "https://github.com/duxianwei520/react",
-  description: " React+webpack+redux+ant design+axios+less全家桶后台管理框架",
-  created_at: "2016-12-02T13:08:43Z",
-  size: 2868,
-  stargazers_count: 4325,
-  language: "JavaScript",
-  forks: 1560,
-  watchers: 4325,
-  subscribers_count: 202,
+  description: "Description",
+  created_at: "",
+  size: 0,
+  stargazers_count: 0,
+  language: "English",
+  forks: 0,
+  watchers: 0,
+  subscribers_count: 0,
 };
 
-// const wrapperBackground = "";
-// const cardBackground = "";
-// const avatarStyle = "";
-
-// const buttonBackground1 = "";
-// const buttonBackground2 = "";
-// const buttonBorderRadius = "";
-
-const Repo = () => {
+const Repo: NextPage = () => {
   const router = useRouter();
   const pageId: string | string[] | undefined = router.query.id;
 
   const { linkData, loading, error } = useFetcher(pageId);
+  const [repoInfo, setRepoInfo] = useState(initialRepoInfo);
 
-  if (!linkData) return <div>No data!</div>;
+  useEffect(() => {
+    const getRepo = async () => {
+      if (linkData) {
+        try {
+          const result = await axios.get(linkData.link);
+          if (result && result.data) {
+            console.log("result.data", result.data);
+            setRepoInfo(result.data);
+          }
+
+          return result;
+        } catch (error) {}
+      }
+    };
+    getRepo();
+  }, [linkData]);
+
+  if (!linkData || !repoInfo) return <div>No data!</div>;
 
   if (error) return <div>Failed to load!</div>;
-
-  console.log("linkData", linkData);
 
   return loading ? (
     <h1>LOADING...</h1>
@@ -56,26 +67,27 @@ const Repo = () => {
         style={{ backgroundColor: linkData.cardBackground }}
       >
         <CardHeader
-          author={mockRepo.owner.login}
-          avatar={mockRepo.owner.avatar_url}
+          author={repoInfo.owner.login}
+          avatar={repoInfo.owner.avatar_url}
           avatarStyle={linkData.avatarStyle}
-          date={mockRepo.created_at}
+          date={repoInfo.created_at}
         />
         <CardBody
-          repoName={mockRepo.name}
-          repoUrl={mockRepo.html_url}
-          desc={mockRepo.description}
-          lang={mockRepo.language}
+          repoName={repoInfo.name}
+          repoUrl={repoInfo.html_url}
+          desc={repoInfo.description}
+          lang={repoInfo.language}
         />
         <CardBottom
-          size={mockRepo.size}
-          watchers={mockRepo.watchers}
-          subscribers={mockRepo.subscribers_count}
-          forks={mockRepo.forks}
-          stars={mockRepo.stargazers_count}
-          buttonBackground1={linkData.buttonBackground1}
-          buttonBackground2={linkData.buttonBackground2}
-          buttonBorderRadius={linkData.buttonBorderRadius}
+          size={repoInfo.size}
+          watchers={repoInfo.watchers}
+          subscribers={repoInfo.subscribers_count}
+          forks={repoInfo.forks}
+          stars={repoInfo.stargazers_count}
+          metricBackground={linkData.metricBackground}
+          metricFontSize={linkData.metricFontSize}
+          metricBorderRadius={linkData.metricBorderRadius}
+          metricFontColor={linkData.metricFontColor}
         />
       </div>
     </div>

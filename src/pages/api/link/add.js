@@ -1,5 +1,5 @@
-import dbConnect from "../../../utils/dbConnect";
 import Link from "../../../models/LinkSchema";
+import dbConnect from "../../../utils/dbConnect";
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -8,7 +8,6 @@ export default async function handler(req, res) {
     case "POST":
       try {
         const link = await Link.create(req.body);
-        console.log("res", res);
         res.status(201).json({ success: true });
       } catch (error) {
         res.status(400).json({ success: false });

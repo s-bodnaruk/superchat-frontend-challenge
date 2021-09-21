@@ -1,8 +1,13 @@
 import mongoose from "mongoose";
 
 const LinkSchema = new mongoose.Schema({
+  shortLinkId: {
+    type: String,
+    required: true,
+  },
   link: {
     type: String,
+    required: true,
   },
   wrapperBackground: {
     type: String,
@@ -13,17 +18,17 @@ const LinkSchema = new mongoose.Schema({
   avatarStyle: {
     type: String,
   },
-  buttonBackground1: {
+  metricBackground: {
     type: String,
   },
-  buttonBackground2: {
+  metricBorderRadius: {
     type: String,
   },
-  buttonBorderRadius: {
+  metricFontSize: {
     type: String,
   },
-  id: {
-    type: Number,
+  metricFontColor: {
+    type: String,
   },
 });
 

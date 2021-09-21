@@ -1,5 +1,5 @@
-import dbConnect from "../../../utils/dbConnect";
 import Link from "../../../models/LinkSchema";
+import dbConnect from "../../../utils/dbConnect";
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        const link = await Link.findOne({ id: id });
+        const link = await Link.findOne({ shortLinkId: id });
         if (!link) {
           return res.status(400).json({ success: false });
         }

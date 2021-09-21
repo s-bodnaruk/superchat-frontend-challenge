@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import Button from "./Button";
+import Metric from "./Metric";
 
 interface ICardBottom {
   size: number;
@@ -8,9 +8,10 @@ interface ICardBottom {
   subscribers: number;
   forks: number;
   stars: number;
-  buttonBackground1: string;
-  buttonBackground2: string;
-  buttonBorderRadius: string;
+  metricBackground: string;
+  metricBorderRadius: string;
+  metricFontSize: string;
+  metricFontColor: string;
 }
 
 const CardBottom: FC<ICardBottom> = ({
@@ -19,46 +20,52 @@ const CardBottom: FC<ICardBottom> = ({
   subscribers,
   forks,
   stars,
-  buttonBackground1,
-  buttonBackground2,
-  buttonBorderRadius,
+  metricBackground,
+  metricFontSize,
+  metricBorderRadius,
+  metricFontColor,
 }) => {
   return (
     <div className="bottom">
-      <Button
+      <Metric
         label="Size"
         type={size}
-        background1={buttonBackground1}
-        background2={buttonBackground2}
-        buttonBorderRadius={buttonBorderRadius}
+        background={metricBackground}
+        fontSize={metricFontSize}
+        borderRadius={metricBorderRadius}
+        color={metricFontColor}
       />
-      <Button
+      <Metric
         label="Watch"
         type={watchers}
-        background1={buttonBackground1}
-        background2={buttonBackground2}
-        buttonBorderRadius={buttonBorderRadius}
+        background={metricBackground}
+        fontSize={metricFontSize}
+        borderRadius={metricBorderRadius}
+        color={metricFontColor}
       />
-      <Button
+      <Metric
         label="Subscribers"
         type={subscribers}
-        background1={buttonBackground1}
-        background2={buttonBackground2}
-        buttonBorderRadius={buttonBorderRadius}
+        background={metricBackground}
+        fontSize={metricFontSize}
+        borderRadius={metricBorderRadius}
+        color={metricFontColor}
       />
-      <Button
+      <Metric
         label="Forks"
         type={forks}
-        background1={buttonBackground1}
-        background2={buttonBackground2}
-        buttonBorderRadius={buttonBorderRadius}
+        background={metricBackground}
+        fontSize={metricFontSize}
+        borderRadius={metricBorderRadius}
+        color={metricFontColor}
       />
-      <Button
+      <Metric
         label="Stars"
         type={stars}
-        background1={buttonBackground1}
-        background2={buttonBackground2}
-        buttonBorderRadius={buttonBorderRadius}
+        background={metricBackground}
+        fontSize={metricFontSize}
+        borderRadius={metricBorderRadius}
+        color={metricFontColor}
       />
     </div>
   );

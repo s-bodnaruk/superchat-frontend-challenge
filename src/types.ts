@@ -1,11 +1,12 @@
 export interface ILink {
   _id: string;
   link: string;
-  id: number;
+  shortLinkId: string;
   wrapperBackground: string;
   cardBackground: string;
   avatarStyle: string;
-  buttonBackground1: string;
-  buttonBackground2: string;
-  buttonBorderRadius: string;
+  metricFontSize: string;
+  metricBorderRadius: string;
+  metricBackground: string;
+  metricFontColor: string;
 }

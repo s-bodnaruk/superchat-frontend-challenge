@@ -1,13 +1,20 @@
-import useClickOutside from "@/utils/useClickOutside";
-import React, { useCallback, useRef, useState } from "react";
+import React, { FC, useCallback, useRef, useState } from "react";
+
 import { HexColorPicker } from "react-colorful";
 
-export const PopoverPicker = ({ color, onChange }) => {
+import { useOnClickOutside } from "usehooks-ts";
+
+interface IPopoverProps {
+  color: string;
+  onChange: (color: string) => void;
+}
+
+export const PopoverPicker: FC<IPopoverProps> = ({ color, onChange }) => {
   const popover = useRef();
   const [isOpen, toggle] = useState(false);
 
   const close = useCallback(() => toggle(false), []);
-  useClickOutside(popover, close);
+  useOnClickOutside(popover, close);
 
   return (
     <div className="picker">

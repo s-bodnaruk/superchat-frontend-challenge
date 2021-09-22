@@ -3,6 +3,7 @@ import { useRouter } from "next/dist/client/router";
 import { NextPage } from "next";
 
 import axios from "axios";
+import Loader from "react-loader-spinner";
 
 import CardHeader from "@/components/CardHeader";
 import CardBody from "@/components/CardBody";
@@ -55,7 +56,15 @@ const Repo: NextPage = () => {
   if (error) return <div>Failed to load!</div>;
 
   return loading ? (
-    <h1>LOADING...</h1>
+    <div className="loader-container">
+      <Loader
+        type="Puff"
+        color="#00BFFF"
+        height={100}
+        width={100}
+        timeout={3000}
+      />
+    </div>
   ) : (
     <div
       className="wrapper"

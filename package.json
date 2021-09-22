@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "bson-ext": "^4.0.1",
     "dayjs": "^1.10.7",
     "formik": "^2.2.9",
     "mongoose": "^6.0.7",

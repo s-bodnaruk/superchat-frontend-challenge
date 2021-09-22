@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "aws4": "^1.11.0",
     "axios": "^0.21.1",
     "bson-ext": "^4.0.1",
     "dayjs": "^1.10.7",

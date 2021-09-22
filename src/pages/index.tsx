@@ -8,6 +8,7 @@ import { PopoverPicker } from "@/components/PopoverPicker";
 import TextInput from "@/components/Formik/TextInput";
 import Select from "@/components/Formik/Select";
 
+import { notify } from "@/utils/notify";
 import { validationSchema } from "@/utils/validationSchema";
 import { BASE_URL } from "@/constants";
 
@@ -29,7 +30,7 @@ const HomePage: NextPage = () => {
   const [metricBackground, setMetricBackground] = useState(defaultBgColor);
   const [metricFontColor, setMetricFontColor] = useState("#000000");
   const [generatedLink, setGeneratedLink] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(false);
 
   const submitForm = async (values: ILinkSubmit) => {
     const {
@@ -56,7 +57,7 @@ const HomePage: NextPage = () => {
 
     const getRepo = async () => {
       try {
-        setError("");
+        setError(false);
         const result = await axios.get(link);
         if (result && result.data) {
           try {
@@ -65,7 +66,8 @@ const HomePage: NextPage = () => {
               setGeneratedLink(`${BASE_URL}/${newLink.shortLinkId}`);
             }
           } catch (e) {
-            setError("Something went wrong! Please, try again!");
+            setError(true);
+            notify("Something went wrong! Please, try again!");
           }
         }
 
@@ -73,13 +75,16 @@ const HomePage: NextPage = () => {
       } catch (error: any) {
         if (error && error.response) {
           if (error.response.status === 404) {
-            setError(
+            setError(true);
+            notify(
               "Repository not found. Please, check username and repo name and try again"
             );
           } else if (error.response.status === 403) {
-            setError("You exceeded rate limit. Please try again later");
+            setError(true);
+            notify("You exceeded rate limit. Please try again later");
           } else {
-            setError(`Something went wrong! Please, try again! ${error}`);
+            setError(true);
+            notify(`Something went wrong! Please, try again! ${error}`);
           }
         }
       }
@@ -168,9 +173,7 @@ const HomePage: NextPage = () => {
           </button>
         </Form>
       </Formik>
-      {error ? (
-        <div className={FormikStyles.linkError}>{error}</div>
-      ) : (
+      {!error && (
         <div className={FormikStyles.link}>
           <a href={generatedLink}>{generatedLink}</a>
         </div>

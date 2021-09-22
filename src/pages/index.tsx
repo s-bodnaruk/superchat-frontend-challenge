@@ -40,8 +40,10 @@ const HomePage: NextPage = () => {
       metricFontSize,
     } = values;
 
+    const link = `https://api.github.com/repos/${userName.trim()}/${repoName.trim()}`;
+
     const newLink = {
-      link: `https://api.github.com/repos/${userName.trim()}/${repoName.trim()}`,
+      link,
       shortLinkId: Math.random().toString(36).substr(2, 5),
       wrapperBackground,
       cardBackground,
@@ -52,14 +54,38 @@ const HomePage: NextPage = () => {
       metricFontColor,
     };
 
-    try {
-      const result = await axios.post("/api/link/add", newLink);
-      if (result && result.data) {
-        setGeneratedLink(`${BASE_URL}/${newLink.shortLinkId}`);
+    const getRepo = async () => {
+      try {
+        setError("");
+        const result = await axios.get(link);
+        if (result && result.data) {
+          try {
+            const result = await axios.post("/api/link/add", newLink);
+            if (result && result.data) {
+              setGeneratedLink(`${BASE_URL}/${newLink.shortLinkId}`);
+            }
+          } catch (e) {
+            setError("Something went wrong! Please, try again!");
+          }
+        }
+
+        return result;
+      } catch (error: any) {
+        if (error && error.response) {
+          if (error.response.status === 404) {
+            setError(
+              "Repository not found. Please, check username and repo name and try again"
+            );
+          } else if (error.response.status === 403) {
+            setError("You exceeded rate limit. Please try again later");
+          } else {
+            setError(`Something went wrong! Please, try again! ${error}`);
+          }
+        }
       }
-    } catch (e) {
-      setError("Something went wrong! Please, try again!");
-    }
+    };
+
+    getRepo();
   };
 
   return (

@@ -59,7 +59,6 @@ const HomePage: NextPage = () => {
     }
   };
 
-  console.log(error);
   return (
     <div className={FormikStyles.formWrapper}>
       <h1>Choose your style before getting a link:</h1>

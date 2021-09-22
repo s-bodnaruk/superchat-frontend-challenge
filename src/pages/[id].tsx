@@ -40,7 +40,6 @@ const Repo: NextPage = () => {
         try {
           const result = await axios.get(linkData.link);
           if (result && result.data) {
-            console.log("result.data", result.data);
             setRepoInfo(result.data);
           }
 

@@ -1,13 +1,11 @@
 import { FC } from "react";
 import { useField } from "formik";
 
-import FormikInputs from "./types";
+import FormikInputProps from "./types";
 
 import FormikStyles from "./formik.style.module.scss";
 
-const TextInput: FC<FormikInputs> = (props) => {
-  const { label } = props;
-
+const TextInput: FC<FormikInputProps> = ({ label, ...props }) => {
   const [field, meta] = useField(props);
 
   return (

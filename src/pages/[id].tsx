@@ -50,7 +50,7 @@ const Repo: NextPage = () => {
     getRepo();
   }, [linkData]);
 
-  if (!linkData || !repoInfo) return <div>No data!</div>;
+  if (!linkData && !loading) return <div>No data!</div>;
 
   if (error) return <div>Failed to load!</div>;
 
@@ -59,16 +59,16 @@ const Repo: NextPage = () => {
   ) : (
     <div
       className="wrapper"
-      style={{ backgroundColor: linkData.wrapperBackground }}
+      style={{ backgroundColor: linkData?.wrapperBackground }}
     >
       <div
         className="card"
-        style={{ backgroundColor: linkData.cardBackground }}
+        style={{ backgroundColor: linkData?.cardBackground }}
       >
         <CardHeader
           author={repoInfo.owner.login}
           avatar={repoInfo.owner.avatar_url}
-          avatarStyle={linkData.avatarStyle}
+          avatarStyle={linkData?.avatarStyle || "rounded"}
           date={repoInfo.created_at}
         />
         <CardBody
@@ -83,10 +83,10 @@ const Repo: NextPage = () => {
           subscribers={repoInfo.subscribers_count}
           forks={repoInfo.forks}
           stars={repoInfo.stargazers_count}
-          metricBackground={linkData.metricBackground}
-          metricFontSize={linkData.metricFontSize}
-          metricBorderRadius={linkData.metricBorderRadius}
-          metricFontColor={linkData.metricFontColor}
+          metricBackground={linkData?.metricBackground || "#ffffff"}
+          metricFontSize={linkData?.metricFontSize || "medium"}
+          metricBorderRadius={linkData?.metricBorderRadius || "rounded"}
+          metricFontColor={linkData?.metricFontColor || "#000000"}
         />
       </div>
     </div>

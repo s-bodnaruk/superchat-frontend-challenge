@@ -1,4 +1,10 @@
-@import "./variables.scss";
+$gray-800: #2d3748;
+$gray-700: #4a5568;
+$gray-200: #edf2f7;
+$gray-100: #f7fafc;
+$red-600: #e53e3e;
+$blue-500: #4299e1;
+$focus-ring-color: $blue-500;
 
 .input[type="text"] {
   padding: 0.65rem 0.5rem;
@@ -101,4 +107,12 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.link {
+  margin-top: 20px;
+}
+
+.linkError {
+  margin-top: 20px;
 }

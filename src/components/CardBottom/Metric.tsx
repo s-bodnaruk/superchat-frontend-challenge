@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-interface IButton {
+interface IMetricProps {
   label: string;
   type: number;
   background?: string;
@@ -9,7 +9,7 @@ interface IButton {
   color?: string;
 }
 
-const Metric: FC<IButton> = ({
+const Metric: FC<IMetricProps> = ({
   label,
   type,
   background,
@@ -21,7 +21,7 @@ const Metric: FC<IButton> = ({
     <div
       className="metric"
       style={{
-        background: background,
+        background,
         borderRadius: borderRadius === "square" ? "0" : "8px",
         fontSize:
           fontSize === "medium"
@@ -29,7 +29,7 @@ const Metric: FC<IButton> = ({
             : fontSize === "large"
             ? "24px"
             : "16px",
-        color: color,
+        color,
       }}
     >
       {label} {type}

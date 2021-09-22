@@ -15,7 +15,7 @@ const CardHeader: FC<ICardHeaderProps> = ({
   author,
   avatar,
   date,
-  avatarStyle,
+  avatarStyle = "rounded",
 }) => {
   return (
     <div className="header">

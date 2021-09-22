@@ -12,8 +12,8 @@ interface IPopoverProps {
 export const PopoverPicker: FC<IPopoverProps> = ({ color, onChange }) => {
   const popover = useRef<HTMLDivElement>(null);
   const [isOpen, toggle] = useState(false);
-
   const close = useCallback(() => toggle(false), []);
+
   useOnClickOutside(popover, close);
 
   return (
@@ -23,7 +23,6 @@ export const PopoverPicker: FC<IPopoverProps> = ({ color, onChange }) => {
         style={{ backgroundColor: color }}
         onClick={() => toggle(true)}
       />
-
       {isOpen && (
         <div className="popover" ref={popover}>
           <HexColorPicker color={color} onChange={onChange} />

@@ -2,7 +2,7 @@ import React, { FC } from "react";
 
 import Metric from "./Metric";
 
-interface ICardBottom {
+interface ICardBottomProps {
   size: number;
   watchers: number;
   subscribers: number;
@@ -14,7 +14,7 @@ interface ICardBottom {
   metricFontColor: string;
 }
 
-const CardBottom: FC<ICardBottom> = ({
+const CardBottom: FC<ICardBottomProps> = ({
   size,
   watchers,
   subscribers,

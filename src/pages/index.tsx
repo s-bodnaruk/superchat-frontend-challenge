@@ -9,6 +9,7 @@ import TextInput from "@/components/Formik/TextInput";
 import Select from "@/components/Formik/Select";
 
 import { validationSchema } from "@/utils/validationSchema";
+import { BASE_URL } from "@/constants";
 
 import FormikStyles from "@/components/Formik/formik.style.module.scss";
 
@@ -20,11 +21,13 @@ interface ILinkSubmit {
   metricFontSize: string;
 }
 
+const defaultBgColor = "#ffffff";
+
 const HomePage: NextPage = () => {
-  const [wrapperBackground, setWrapperBackground] = useState("#ffffff");
-  const [cardBackground, setCardBackground] = useState("#ffffff");
-  const [metricBackground, setMetricBackground] = useState("#ffffff");
-  const [metricFontColor, setMetricFontColor] = useState("#ffffff");
+  const [wrapperBackground, setWrapperBackground] = useState(defaultBgColor);
+  const [cardBackground, setCardBackground] = useState(defaultBgColor);
+  const [metricBackground, setMetricBackground] = useState(defaultBgColor);
+  const [metricFontColor, setMetricFontColor] = useState("#000000");
   const [generatedLink, setGeneratedLink] = useState("");
   const [error, setError] = useState("");
 
@@ -36,26 +39,26 @@ const HomePage: NextPage = () => {
       metricBorderRadius,
       metricFontSize,
     } = values;
+
     const newLink = {
       link: `https://api.github.com/repos/${userName.trim()}/${repoName.trim()}`,
       shortLinkId: Math.random().toString(36).substr(2, 5),
-      wrapperBackground: wrapperBackground,
-      cardBackground: cardBackground,
-      avatarStyle: avatarStyle,
-      metricBackground: metricBackground,
-      metricBorderRadius: metricBorderRadius,
-      metricFontSize: metricFontSize,
-      metricFontColor: metricFontColor,
+      wrapperBackground,
+      cardBackground,
+      avatarStyle,
+      metricBackground,
+      metricBorderRadius,
+      metricFontSize,
+      metricFontColor,
     };
-    if (newLink) {
-      try {
-        const result = await axios.post("/api/link/add", newLink);
-        if (result && result.data) {
-          setGeneratedLink(`/${newLink.shortLinkId}`);
-        }
-      } catch (e) {
-        setError("Something went wrong! Please, try again!");
+
+    try {
+      const result = await axios.post("/api/link/add", newLink);
+      if (result && result.data) {
+        setGeneratedLink(`${BASE_URL}/${newLink.shortLinkId}`);
       }
+    } catch (e) {
+      setError("Something went wrong! Please, try again!");
     }
   };
 
@@ -140,9 +143,9 @@ const HomePage: NextPage = () => {
         </Form>
       </Formik>
       {error ? (
-        <div>{error}</div>
+        <div className={FormikStyles.linkError}>{error}</div>
       ) : (
-        <div>
+        <div className={FormikStyles.link}>
           <a href={generatedLink}>{generatedLink}</a>
         </div>
       )}

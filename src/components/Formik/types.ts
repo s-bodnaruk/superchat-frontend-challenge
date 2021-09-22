@@ -1,6 +1,6 @@
-export default interface FormikInputs {
-  label?: string;
+export default interface FormikInputProps {
   name: string;
+  label?: string;
   id?: string;
   type?: "text";
   placeholder?: string;

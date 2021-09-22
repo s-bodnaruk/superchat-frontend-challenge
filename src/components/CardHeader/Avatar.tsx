@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 
-interface IAvatar {
+interface IAvatarProps {
   avatar: string;
   avatarStyle: string;
 }
 
-const Avatar: FC<IAvatar> = ({ avatar, avatarStyle }) => {
+const Avatar: FC<IAvatarProps> = ({ avatar, avatarStyle }) => {
   return (
     <div>
       <img

@@ -1,7 +1,12 @@
+import type { NextApiRequest, NextApiResponse } from "next";
+
 import Link from "@/models/LinkSchema";
 import dbConnect from "@/utils/dbConnect";
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const {
     method,
     query: { id },

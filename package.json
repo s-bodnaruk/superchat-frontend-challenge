@@ -13,6 +13,7 @@
     "axios": "^0.21.1",
     "bson-ext": "^4.0.1",
     "dayjs": "^1.10.7",
+    "dotenv": "^10.0.0",
     "formik": "^2.2.9",
     "kerberos": "^1.1.7",
     "mongodb-client-encryption": "^1.2.7",
@@ -29,6 +30,7 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
+    "@types/mongoose": "^5.11.97",
     "@types/node": "^16.3.1",
     "@types/react": "^17.0.14",
     "eslint": "7.30.0",

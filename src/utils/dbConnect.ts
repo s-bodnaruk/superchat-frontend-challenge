@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 interface ConnectionOptionsExtend extends mongoose.ConnectOptions {
   useNewUrlParser: boolean;
   useFindAndModify: boolean;

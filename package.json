@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.6.4",
     "aws4": "^1.11.0",
     "axios": "^0.21.1",
     "bson-ext": "^4.0.1",

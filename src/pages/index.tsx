@@ -4,11 +4,13 @@ import { NextPage } from "next";
 import axios from "axios";
 import { Formik, Form } from "formik";
 
+import { CopyFilled } from "@ant-design/icons";
+
 import { PopoverPicker } from "@/components/PopoverPicker";
 import TextInput from "@/components/Formik/TextInput";
 import Select from "@/components/Formik/Select";
 
-import { notify } from "@/utils/notify";
+import { notifyerror, notifysuccess } from "@/utils/notify";
 import { validationSchema } from "@/utils/validationSchema";
 import { BASE_URL } from "@/constants";
 
@@ -30,7 +32,12 @@ const HomePage: NextPage = () => {
   const [metricBackground, setMetricBackground] = useState(defaultBgColor);
   const [metricFontColor, setMetricFontColor] = useState("#000000");
   const [generatedLink, setGeneratedLink] = useState("");
-  const [error, setError] = useState(false);
+  const [result, setResult] = useState(false);
+
+  const copyInBuffer = async () => {
+    await navigator.clipboard.writeText(generatedLink);
+    notifysuccess("Link copied");
+  };
 
   const submitForm = async (values: ILinkSubmit) => {
     const {
@@ -57,17 +64,17 @@ const HomePage: NextPage = () => {
 
     const getRepo = async () => {
       try {
-        setError(false);
+        setResult(false);
         const result = await axios.get(link);
         if (result && result.data) {
           try {
             const result = await axios.post("/api/link/add", newLink);
+            setResult(true);
             if (result && result.data) {
               setGeneratedLink(`${BASE_URL}/${newLink.shortLinkId}`);
             }
           } catch (e) {
-            setError(true);
-            notify("Something went wrong! Please, try again!");
+            notifyerror("Something went wrong! Please, try again!");
           }
         }
 
@@ -75,16 +82,13 @@ const HomePage: NextPage = () => {
       } catch (error: any) {
         if (error && error.response) {
           if (error.response.status === 404) {
-            setError(true);
-            notify(
+            notifyerror(
               "Repository not found. Please, check username and repo name and try again"
             );
           } else if (error.response.status === 403) {
-            setError(true);
-            notify("You exceeded rate limit. Please try again later");
+            notifyerror("You exceeded rate limit. Please try again later");
           } else {
-            setError(true);
-            notify(`Something went wrong! Please, try again! ${error}`);
+            notifyerror(`Something went wrong! Please, try again! ${error}`);
           }
         }
       }
@@ -92,7 +96,6 @@ const HomePage: NextPage = () => {
 
     getRepo();
   };
-
   return (
     <div className={FormikStyles.formWrapper}>
       <h1>Choose your style before getting a link:</h1>
@@ -173,9 +176,13 @@ const HomePage: NextPage = () => {
           </button>
         </Form>
       </Formik>
-      {!error && (
+      {result && (
         <div className={FormikStyles.link}>
           <a href={generatedLink}>{generatedLink}</a>
+          <CopyFilled
+            onClick={copyInBuffer}
+            style={{ fontSize: "20px", color: "#4A5568", marginLeft: "20px" }}
+          />
         </div>
       )}
     </div>

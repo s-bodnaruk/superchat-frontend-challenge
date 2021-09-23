@@ -1,35 +1,24 @@
 import mongoose from "mongoose";
+interface ConnectionOptionsExtend extends mongoose.ConnectOptions {
+  useNewUrlParser: boolean;
+  useFindAndModify: boolean;
+  useUnifiedTopology: boolean;
+  useCreateIndex: boolean;
+}
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
-if (!MONGODB_URI && typeof window === "undefined") {
-  throw new Error(
-    "Please define the MONGODB_URI environment variable inside .env.local"
-  );
-}
-
-let cached = global.mongoose;
-
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
-}
-
 async function dbConnect() {
-  if (cached.conn) {
-    return cached.conn;
-  }
+  const opts: ConnectionOptionsExtend = {
+    useNewUrlParser: true,
+    useFindAndModify: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  };
 
-  if (!cached.promise) {
-    const opts = {
-      useNewUrlParser: true,
-    };
-
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
-      return mongoose;
-    });
-  }
-  cached.conn = await cached.promise;
-  return cached.conn;
+  await mongoose.connect(`${MONGODB_URI}`, opts).then((mongoose) => {
+    return mongoose;
+  });
 }
 
 export default dbConnect;

@@ -12,7 +12,6 @@ import Select from "@/components/Formik/Select";
 
 import { notifyerror, notifysuccess } from "@/utils/notify";
 import { validationSchema } from "@/utils/validationSchema";
-import { BASE_URL } from "@/constants";
 
 import FormikStyles from "@/components/Formik/formik.style.module.scss";
 
@@ -25,6 +24,8 @@ interface ILinkSubmit {
 }
 
 const defaultBgColor = "#ffffff";
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 const HomePage: NextPage = () => {
   const [wrapperBackground, setWrapperBackground] = useState(defaultBgColor);
@@ -96,6 +97,7 @@ const HomePage: NextPage = () => {
 
     getRepo();
   };
+
   return (
     <div className={FormikStyles.formWrapper}>
       <h1>Choose your style before getting a link:</h1>

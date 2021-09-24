@@ -1,6 +1,18 @@
 import mongoose from "mongoose";
 
-const LinkSchema = new mongoose.Schema({
+interface ILinkSchema {
+  shortLinkId: string;
+  link: string;
+  wrapperBackground: string;
+  cardBackground: string;
+  metricBackground: string;
+  metricBorderRadius: string;
+  metricFontSize: string;
+  metricFontColor: string;
+  avatarStyle: string;
+}
+
+const LinkSchema = new mongoose.Schema<ILinkSchema>({
   shortLinkId: {
     type: String,
     required: true,
@@ -34,4 +46,5 @@ const LinkSchema = new mongoose.Schema({
 
 LinkSchema.set("timestamps", true);
 
-export default mongoose?.models?.Link || mongoose.model("Link", LinkSchema);
+export default mongoose?.models?.Link ||
+  mongoose.model<ILinkSchema>("Link", LinkSchema);

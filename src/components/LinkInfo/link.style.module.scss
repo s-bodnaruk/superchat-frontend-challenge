@@ -1,0 +1,33 @@
+.linkWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+
+  .infoArea {
+    padding: 2px 0;
+    color: #ffffff;
+
+    .infoTitle {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    .infoBody {
+      text-decoration: none;
+    }
+  }
+
+  .linkArea {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+
+    .linkBody {
+      font-size: large;
+      font-weight: bold;
+      color: #ffffff;
+      text-decoration: none;
+    }
+  }
+}

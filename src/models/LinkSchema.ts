@@ -3,13 +3,13 @@ import mongoose from "mongoose";
 interface ILinkSchema {
   shortLinkId: string;
   link: string;
-  wrapperBackground: string;
-  cardBackground: string;
-  metricBackground: string;
-  metricBorderRadius: string;
-  metricFontSize: string;
-  metricFontColor: string;
-  avatarStyle: string;
+  wrapperBackground?: string;
+  cardBackground?: string;
+  metricBackground?: string;
+  metricBorderRadius?: string;
+  metricFontSize?: string;
+  metricFontColor?: string;
+  avatarStyle?: string;
 }
 
 const LinkSchema = new mongoose.Schema<ILinkSchema>({

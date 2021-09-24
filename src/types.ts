@@ -10,3 +10,8 @@ export interface ILink {
   metricBackground: string;
   metricFontColor: string;
 }
+export interface IRepoInfo {
+  userName: string;
+  repoName: string;
+  link: string;
+}

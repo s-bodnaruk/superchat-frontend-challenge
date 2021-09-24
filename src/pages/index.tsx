@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NextPage } from "next";
+import NextLink from "next/link";
 
 import axios from "axios";
 import { Formik, Form } from "formik";
@@ -12,6 +13,7 @@ import Select from "@/components/Formik/Select";
 
 import { notifyerror, notifysuccess } from "@/utils/notify";
 import { validationSchema } from "@/utils/validationSchema";
+import { setToStorage } from "@/utils/setToStorage";
 
 import FormikStyles from "@/components/Formik/formik.style.module.scss";
 
@@ -66,6 +68,8 @@ const HomePage: NextPage = () => {
     const getRepo = async () => {
       try {
         setResult(false);
+        setGeneratedLink("");
+
         const result = await axios.get(link);
         if (result && result.data) {
           try {
@@ -73,6 +77,7 @@ const HomePage: NextPage = () => {
             setResult(true);
             if (result && result.data) {
               setGeneratedLink(`${BASE_URL}/${newLink.shortLinkId}`);
+              setToStorage(userName, repoName, link);
             }
           } catch (e) {
             notifyerror("Something went wrong! Please, try again!");
@@ -187,6 +192,9 @@ const HomePage: NextPage = () => {
           />
         </div>
       )}
+      <div className={FormikStyles.showAllLinks}>
+        <NextLink href="/links">Previously generated links</NextLink>
+      </div>
     </div>
   );
 };

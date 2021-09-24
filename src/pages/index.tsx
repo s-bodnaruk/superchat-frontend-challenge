@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NextPage } from "next";
+import NextLink from "next/link";
 
 import axios from "axios";
 import { Formik, Form } from "formik";
@@ -9,6 +10,8 @@ import { CopyFilled } from "@ant-design/icons";
 import { PopoverPicker } from "@/components/PopoverPicker";
 import TextInput from "@/components/Formik/TextInput";
 import Select from "@/components/Formik/Select";
+
+import LocalStorageService from "@/services/localStorageService/";
 
 import { notifyerror, notifysuccess } from "@/utils/notify";
 import { validationSchema } from "@/utils/validationSchema";
@@ -34,6 +37,31 @@ const HomePage: NextPage = () => {
   const [metricFontColor, setMetricFontColor] = useState("#000000");
   const [generatedLink, setGeneratedLink] = useState("");
   const [result, setResult] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [repoName, setRepoName] = useState("");
+
+  useEffect(() => {
+    if (generatedLink) {
+      const repoInfo = {
+        userName,
+        repoName,
+        generatedLink,
+      };
+      try {
+        const linksInStorage = LocalStorageService.getLinksFromStorage();
+        if (linksInStorage) {
+          const newLinksInStorage = [...linksInStorage, repoInfo];
+          LocalStorageService.setLinkToStorage(newLinksInStorage);
+        } else {
+          LocalStorageService.setLinkToStorage([repoInfo]);
+        }
+      } catch (e) {
+        notifyerror(
+          `Can not set a link to the local storage. Please try again od reload this page. ${e}`
+        );
+      }
+    }
+  }, [generatedLink]);
 
   const copyInBuffer = async () => {
     await navigator.clipboard.writeText(generatedLink);
@@ -51,6 +79,9 @@ const HomePage: NextPage = () => {
 
     const link = `https://api.github.com/repos/${userName.trim()}/${repoName.trim()}`;
 
+    setUserName(userName);
+    setRepoName(repoName);
+
     const newLink = {
       link,
       shortLinkId: Math.random().toString(36).substr(2, 5),
@@ -66,6 +97,8 @@ const HomePage: NextPage = () => {
     const getRepo = async () => {
       try {
         setResult(false);
+        setGeneratedLink("");
+
         const result = await axios.get(link);
         if (result && result.data) {
           try {
@@ -187,6 +220,9 @@ const HomePage: NextPage = () => {
           />
         </div>
       )}
+      <div className={FormikStyles.showAllLinks}>
+        <NextLink href="/links">Previously generated links</NextLink>
+      </div>
     </div>
   );
 };

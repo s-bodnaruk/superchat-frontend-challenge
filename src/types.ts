@@ -13,5 +13,5 @@ export interface ILink {
 export interface IRepoInfo {
   userName: string;
   repoName: string;
-  generatedLink: string;
+  link: string;
 }

@@ -11,10 +11,9 @@ import { PopoverPicker } from "@/components/PopoverPicker";
 import TextInput from "@/components/Formik/TextInput";
 import Select from "@/components/Formik/Select";
 
-import LocalStorageService from "@/services/localStorageService/";
-
 import { notifyerror, notifysuccess } from "@/utils/notify";
 import { validationSchema } from "@/utils/validationSchema";
+import { setToStorage } from "@/utils/setToStorage";
 
 import FormikStyles from "@/components/Formik/formik.style.module.scss";
 
@@ -37,31 +36,6 @@ const HomePage: NextPage = () => {
   const [metricFontColor, setMetricFontColor] = useState("#000000");
   const [generatedLink, setGeneratedLink] = useState("");
   const [result, setResult] = useState(false);
-  const [userName, setUserName] = useState("");
-  const [repoName, setRepoName] = useState("");
-
-  useEffect(() => {
-    if (generatedLink) {
-      const repoInfo = {
-        userName,
-        repoName,
-        generatedLink,
-      };
-      try {
-        const linksInStorage = LocalStorageService.getLinksFromStorage();
-        if (linksInStorage) {
-          const newLinksInStorage = [...linksInStorage, repoInfo];
-          LocalStorageService.setLinkToStorage(newLinksInStorage);
-        } else {
-          LocalStorageService.setLinkToStorage([repoInfo]);
-        }
-      } catch (e) {
-        notifyerror(
-          `Can not set a link to the local storage. Please try again od reload this page. ${e}`
-        );
-      }
-    }
-  }, [generatedLink]);
 
   const copyInBuffer = async () => {
     await navigator.clipboard.writeText(generatedLink);
@@ -78,9 +52,6 @@ const HomePage: NextPage = () => {
     } = values;
 
     const link = `https://api.github.com/repos/${userName.trim()}/${repoName.trim()}`;
-
-    setUserName(userName);
-    setRepoName(repoName);
 
     const newLink = {
       link,
@@ -106,6 +77,7 @@ const HomePage: NextPage = () => {
             setResult(true);
             if (result && result.data) {
               setGeneratedLink(`${BASE_URL}/${newLink.shortLinkId}`);
+              setToStorage(userName, repoName, link);
             }
           } catch (e) {
             notifyerror("Something went wrong! Please, try again!");
